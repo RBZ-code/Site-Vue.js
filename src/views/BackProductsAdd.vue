@@ -136,6 +136,7 @@ export default {
     width: 90%;
     margin: 1rem auto;
     padding: 1rem;
+    min-height: 80vh;
 }
 
 .product-creation-container form {

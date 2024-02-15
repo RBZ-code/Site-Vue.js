@@ -1,53 +1,52 @@
 <template>
-    <header class="order-progress">
-        <div class="order-progress_step order-progress--active"></div>
-        <div class="order-progress_bar order-progress--active"></div>
-        <div class="order-progress_step"></div>
-    </header>
-    <h1>Récapitulatif commance (2/2)</h1>
-            
-    <MyButton label="Confirmer la commande" modifier="action" @GeneralEventBtn="confirmerCommande" class="btn" />
-    <div class="summary-container">
-        <h2>Résumé de commande</h2>
-
-        <div class="listing-template">
-            <table class="listing-tab">
-                <thead>
-                    <tr>
-                        <th>Produit</th>
-                        <th>Quantité</th>
-                        <th>Total TTC</th>
-                        <th>Total HT</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(prod, index) in currentUserPanier" :key="index">
-                        <td>{{ prod.titre }}</td>
-                        <td>{{ prod.quantity }}</td>
-                        <td>{{ calculateSubtotal(prod).toFixed(2) }}€</td>
-                        <td>{{ calculateSubtotalWithoutTax(prod).toFixed(2) }}€</td>
-                    </tr>
-                </tbody>
-            </table>
+    <main>
+        <header class="order-progress">
+            <div class="order-progress_step order-progress--active"></div>
+            <div class="order-progress_bar order-progress--active"></div>
+            <div class="order-progress_step"></div>
+        </header>
+        <h1>Récapitulatif commance (2/2)</h1>
+        
+        <MyButton label="Confirmer la commande" modifier="action" @GeneralEventBtn="confirmerCommande" class="btn" />
+        <div class="summary-container">
+            <h2>Résumé de commande</h2>
+            <div class="listing-template">
+                <table class="listing-tab">
+                    <thead>
+                        <tr>
+                            <th>Produit</th>
+                            <th>Quantité</th>
+                            <th>Total TTC</th>
+                            <th>Total HT</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(prod, index) in currentUserPanier" :key="index">
+                            <td>{{ prod.titre }}</td>
+                            <td>{{ prod.quantity }}</td>
+                            <td>{{ calculateSubtotal(prod).toFixed(2) }}€</td>
+                            <td>{{ calculateSubtotalWithoutTax(prod).toFixed(2) }}€</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+            <div class="total-section">
+                <p>Total TTC : {{ totalTTC.toFixed(2) }} € -- Total HT : {{ totalHT.toFixed(2) }} €</p>
+            </div>
+            <div class="delivery-info-section">
+                <h2>Informations de livraison</h2>
+                <p>Nom : {{ currentUser.raisonSociale }}</p>
+                <p>Adresse : {{ adressInfo }}</p>
+            </div>
         </div>
-    
-        <div class="total-section">
-            <p>Total TTC : {{ totalTTC.toFixed(2) }} € -- Total HT : {{ totalHT.toFixed(2) }} €</p>
+        <div v-if="showThankYouModal" class="modals">
+            <div class="modal-content">
+                <h2>Commande validée</h2>
+                <p>Nous vous remercions de votre confiance.</p>
+            </div>
         </div>
-
-        <div class="delivery-info-section">
-            <h2>Informations de livraison</h2>
-            <p>Nom : {{ currentUser.raisonSociale }}</p>
-            <p>Adresse : {{ adressInfo }}</p>
-        </div>
-
-    </div>
-    <div v-if="showThankYouModal" class="modals">
-        <div class="modal-content">
-            <h2>Commande validée</h2>
-            <p>Nous vous remercions de votre confiance.</p>
-        </div>
-    </div>
+    </main>
 </template>
 
 <script>
@@ -137,6 +136,10 @@ export default {
 </script>
 
 <style scoped>
+
+main {
+    min-height: 80vh;
+}
 
 .modals {
     position: fixed;

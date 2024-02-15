@@ -64,6 +64,8 @@ export default {
 .carousel {
     margin: 5rem;
     position: relative;
+    max-width: 1000px;
+    min-width: 250px;
     width: 50%;
     height: 400px;
     overflow: hidden;
